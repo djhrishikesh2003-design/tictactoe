@@ -11,8 +11,8 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                url: 'https://github.com/Sharanya21-ai/tictactoe.git'
+                // Best practice: automatically grabs your repository from the Jenkins job UI
+                checkout scm
             }
         }
 
@@ -24,35 +24,34 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
-                // Removed 'sudo'. Renamed destination file to ROOT.war for a cleaner URL.
-                sh 'cp target/*.war /var/lib/tomcat10/webapps/ROOT.war || true'
+                // Copies the newly packaged file into Tomcat's deployment directory as puzzle.war
+                sh 'cp target/*.war /var/lib/tomcat10/webapps/puzzle.war || true'
             }
         }
 
     }
 
     post {
-
         success {
             emailext (
                 subject: "SUCCESS: ${JOB_NAME} #${BUILD_NUMBER}",
                 body: """
 Build Successful!
 
-Tic Tac Toe Game deployed successfully.
+Photo Puzzle Game deployed successfully.
 
-Open Game:
-http://localhost:8091/
+Play the Game here:
+http://localhost:8091/puzzle/
 """,
-                to: "sharanyajagannath214@gmail.com"
+                to: "djhrishikesh2003@gmail.com"
             )
         }
 
         failure {
             emailext (
                 subject: "FAILED: ${JOB_NAME} #${BUILD_NUMBER}",
-                body: "Build Failed!",
-                to: "sharanyajagannath214@gmail.com"
+                body: "Build Failed! Check the Jenkins console logs to find the issue.",
+                to: "djhrishikesh2003@gmail.com"
             )
         }
     }
