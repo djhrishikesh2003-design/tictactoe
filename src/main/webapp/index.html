@@ -1,33 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tic Tac Toe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Photo Puzzle</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Tic Tac Toe Game</h1>
+    <h1>Photo Puzzle Game</h1>
+    <p>Arrange the pieces to form the complete picture. You must do it within the move limit!</p>
 
-<div class="board">
-    <div class="cell" onclick="play(this)"></div>
-    <div class="cell" onclick="play(this)"></div>
-    <div class="cell" onclick="play(this)"></div>
+    <div class="game-container">
+        <div id="board"></div>
 
-    <div class="cell" onclick="play(this)"></div>
-    <div class="cell" onclick="play(this)"></div>
-    <div class="cell" onclick="play(this)"></div>
+        <div class="stats-panel">
+            <div class="stat-box">
+                <h3>Moves Remaining</h3>
+                <span id="moves-count">25</span>
+            </div>
+            <button onclick="startNewGame()">New Random Photo</button>
+            <h2 id="game-status"></h2>
+        </div>
+    </div>
 
-    <div class="cell" onclick="play(this)"></div>
-    <div class="cell" onclick="play(this)"></div>
-    <div class="cell" onclick="play(this)"></div>
-</div>
+    <div class="reference-container">
+        <h3>Target Image:</h3>
+        <img id="reference-img" src="" alt="Target Image">
+    </div>
 
-<h2 id="status">Player X Turn</h2>
-
-<button onclick="restartGame()">Restart</button>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
